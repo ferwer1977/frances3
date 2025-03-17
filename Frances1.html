@@ -6,194 +6,127 @@
     <title>Aprendizaje de Francés</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+            color: #333;
         }
         .container {
             background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             text-align: center;
-            width: 300px;
+            width: 400px;
+            max-width: 90%;
         }
         h1 {
             margin-bottom: 20px;
+            color: #2575fc;
+            font-size: 28px;
         }
         button {
-            padding: 10px 20px;
+            padding: 12px 24px;
             margin: 10px;
             border: none;
-            border-radius: 5px;
-            background-color: #007bff;
+            border-radius: 25px;
+            background-color: #2575fc;
             color: white;
             cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
         }
         button:hover {
-            background-color: #0056b3;
+            background-color: #1a5bbf;
         }
         .feedback {
             margin-top: 20px;
             font-weight: bold;
+            font-size: 18px;
+            padding: 10px;
+            border-radius: 10px;
         }
         input {
-            padding: 10px;
-            margin-top: 10px;
+            padding: 12px;
+            margin-top: 15px;
             width: 80%;
-            border-radius: 5px;
-            border: 1px solid #ccc;
+            border-radius: 25px;
+            border: 2px solid #ddd;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s ease;
         }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Aprendizaje de Francés</h1>
-        <div id="menu">
-            <button onclick="startGrammar()">Gramática</button>
-            <button onclick="startVocabulary()">Vocabulario</button>
-        </div>
-        <div id="exercise" style="display: none;">
-            <p id="prompt"></p>
-            <input type="text" id="answer" placeholder="Tu respuesta">
-            <button onclick="checkAnswer()">Comprobar</button>
-            <div class="feedback" id="feedback"></div>
-            <button onclick="nextExercise()">Siguiente</button>
-        </div>
-    </div>
-
-    <script>
-        const grammarExercises = [
-            { prompt: "¿Dónde está el baño?", answer: "Où sont les toilettes ?" },
-            { prompt: "Quisiera un café, por favor", answer: "Je voudrais un café, s'il vous plaît" }
-        ];
-
-        const vocabularyExercises = [
-            { word: "restaurant", translation: "restaurante" },
-            { word: "école", translation: "escuela" }
-        ];
-
-        let currentMode = null;
-        let currentExercises = [];
-        let currentIndex = 0;
-
-        function startGrammar() {
-            currentMode = 'grammar';
-            currentExercises = grammarExercises;
-            showExercise();
+        input:focus {
+            border-color: #2575fc;
         }
-
-        function startVocabulary() {
-            currentMode = 'vocabulary';
-            currentExercises = vocabularyExercises;
-            showExercise();
-        }
-
-        function showExercise() {
-            document.getElementById('menu').style.display = 'none';
-            document.getElementById('exercise').style.display = 'block';
-            if (currentMode === 'grammar') {
-                document.getElementById('prompt').textContent = currentExercises[currentIndex].prompt;
-            } else {
-                document.getElementById('prompt').textContent = `Traduce la palabra: ${currentExercises[currentIndex].word}`;
-            }
-            document.getElementById('feedback').textContent = '';
-            document.getElementById('answer').value = '';
-        }
-
-        function checkAnswer() {
-            const userAnswer = document.getElementById('answer').value.trim();
-            const correctAnswer = currentMode === 'grammar' ? currentExercises[currentIndex].answer : currentExercises[currentIndex].translation;
-            if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
-                document.getElementById('feedback').textContent = '¡Correcto!';
-                document.getElementById('feedback').style.color = 'green';
-            } else {
-                document.getElementById('feedback').textContent = `Incorrecto. La respuesta correcta es: ${correctAnswer}`;
-                document.getElementById('feedback').style.color = 'red';
-            }
-        }
-
-        function nextExercise() {
-            currentIndex = (currentIndex + 1) % currentExercises.length;
-            showExercise();
-        }
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aprendizaje de Francés</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 300px;
-        }
-        h1 {
-            margin-bottom: 20px;
-        }
-        button {
-            padding: 10px 20px;
-            margin: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: #007bff;
-            color: white;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .feedback {
+        .mode-switch {
             margin-top: 20px;
-            font-weight: bold;
+        }
+        .mode-switch button {
+            background-color: #28a745;
+        }
+        .mode-switch button:hover {
+            background-color: #218838;
+        }
+        .correct {
+            color: #28a745;
+        }
+        .incorrect {
+            color: #dc3545;
+        }
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Aprendizaje de Francés</h1>
+        <h1>🇫🇷 Aprendizaje de Francés</h1>
         <div id="menu">
             <button onclick="startGrammar()">Gramática</button>
             <button onclick="startVocabulary()">Vocabulario</button>
         </div>
-        <div id="exercise" style="display: none;">
-            <p id="prompt"></p>
-            <input type="text" id="answer" placeholder="Tu respuesta">
+        <div id="exercise" class="hidden">
+            <p id="prompt" style="font-size: 20px; font-weight: bold;"></p>
+            <input type="text" id="answer" placeholder="Escribe tu respuesta aquí">
             <button onclick="checkAnswer()">Comprobar</button>
             <div class="feedback" id="feedback"></div>
-            <button onclick="nextExercise()">Siguiente</button>
+            <button onclick="nextExercise()">Siguiente ejercicio</button>
+            <div class="mode-switch">
+                <button onclick="switchMode()">Cambiar a {{Modo}}</button>
+            </div>
         </div>
     </div>
 
     <script>
         const grammarExercises = [
             { prompt: "¿Dónde está el baño?", answer: "Où sont les toilettes ?" },
-            { prompt: "Quisiera un café, por favor", answer: "Je voudrais un café, s'il vous plaît" }
+            { prompt: "Quisiera un café, por favor", answer: "Je voudrais un café, s'il vous plaît" },
+            { prompt: "¿Cómo te llamas?", answer: "Comment tu t'appelles ?" },
+            { prompt: "¿Qué hora es?", answer: "Quelle heure est-il ?" },
+            { prompt: "¿Cuánto cuesta esto?", answer: "Combien ça coûte ?" },
+            { prompt: "Necesito ayuda", answer: "J'ai besoin d'aide" },
+            { prompt: "¿Hablas inglés?", answer: "Parlez-vous anglais ?" },
+            { prompt: "Estoy perdido", answer: "Je suis perdu" },
+            { prompt: "¿Dónde está la estación de tren?", answer: "Où est la gare ?" },
+            { prompt: "Quiero reservar una habitación", answer: "Je voudrais réserver une chambre" }
         ];
 
         const vocabularyExercises = [
             { word: "restaurant", translation: "restaurante" },
-            { word: "école", translation: "escuela" }
+            { word: "école", translation: "escuela" },
+            { word: "avion", translation: "avión" },
+            { word: "hôtel", translation: "hotel" },
+            { word: "train", translation: "tren" },
+            { word: "bus", translation: "autobús" },
+            { word: "argent", translation: "dinero" },
+            { word: "billet", translation: "boleto" },
+            { word: "nourriture", translation: "comida" },
+            { word: "eau", translation: "agua" }
         ];
 
         let currentMode = null;
@@ -202,19 +135,23 @@
 
         function startGrammar() {
             currentMode = 'grammar';
-            currentExercises = grammarExercises;
+            currentExercises = shuffleArray(grammarExercises);
+            currentIndex = 0;
             showExercise();
+            updateModeButton();
         }
 
         function startVocabulary() {
             currentMode = 'vocabulary';
-            currentExercises = vocabularyExercises;
+            currentExercises = shuffleArray(vocabularyExercises);
+            currentIndex = 0;
             showExercise();
+            updateModeButton();
         }
 
         function showExercise() {
-            document.getElementById('menu').style.display = 'none';
-            document.getElementById('exercise').style.display = 'block';
+            document.getElementById('menu').classList.add('hidden');
+            document.getElementById('exercise').classList.remove('hidden');
             if (currentMode === 'grammar') {
                 document.getElementById('prompt').textContent = currentExercises[currentIndex].prompt;
             } else {
@@ -228,17 +165,38 @@
             const userAnswer = document.getElementById('answer').value.trim();
             const correctAnswer = currentMode === 'grammar' ? currentExercises[currentIndex].answer : currentExercises[currentIndex].translation;
             if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
-                document.getElementById('feedback').textContent = '¡Correcto!';
-                document.getElementById('feedback').style.color = 'green';
+                document.getElementById('feedback').textContent = '¡Correcto! 🎉';
+                document.getElementById('feedback').className = 'feedback correct';
             } else {
                 document.getElementById('feedback').textContent = `Incorrecto. La respuesta correcta es: ${correctAnswer}`;
-                document.getElementById('feedback').style.color = 'red';
+                document.getElementById('feedback').className = 'feedback incorrect';
             }
         }
 
         function nextExercise() {
             currentIndex = (currentIndex + 1) % currentExercises.length;
             showExercise();
+        }
+
+        function switchMode() {
+            if (currentMode === 'grammar') {
+                startVocabulary();
+            } else {
+                startGrammar();
+            }
+        }
+
+        function updateModeButton() {
+            const button = document.querySelector('.mode-switch button');
+            if (currentMode === 'grammar') {
+                button.textContent = 'Cambiar a Vocabulario';
+            } else {
+                button.textContent = 'Cambiar a Gramática';
+            }
+        }
+
+        function shuffleArray(array) {
+            return array.sort(() => Math.random() - 0.5);
         }
     </script>
 </body>
