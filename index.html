@@ -20,10 +20,11 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             text-align: center;
-            width: 300px;
+            width: 350px;
         }
         h1 {
             margin-bottom: 20px;
+            color: #007bff;
         }
         button {
             padding: 10px 20px;
@@ -33,6 +34,7 @@
             background-color: #007bff;
             color: white;
             cursor: pointer;
+            font-size: 16px;
         }
         button:hover {
             background-color: #0056b3;
@@ -40,6 +42,7 @@
         .feedback {
             margin-top: 20px;
             font-weight: bold;
+            font-size: 18px;
         }
         input {
             padding: 10px;
@@ -47,6 +50,16 @@
             width: 80%;
             border-radius: 5px;
             border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        .mode-switch {
+            margin-top: 20px;
+        }
+        .mode-switch button {
+            background-color: #28a745;
+        }
+        .mode-switch button:hover {
+            background-color: #218838;
         }
     </style>
 </head>
@@ -63,18 +76,23 @@
             <button onclick="checkAnswer()">Comprobar</button>
             <div class="feedback" id="feedback"></div>
             <button onclick="nextExercise()">Siguiente</button>
+            <div class="mode-switch">
+                <button onclick="switchMode()">Cambiar a {{Modo}}</button>
+            </div>
         </div>
     </div>
 
     <script>
         const grammarExercises = [
             { prompt: "¿Dónde está el baño?", answer: "Où sont les toilettes ?" },
-            { prompt: "Quisiera un café, por favor", answer: "Je voudrais un café, s'il vous plaît" }
+            { prompt: "Quisiera un café, por favor", answer: "Je voudrais un café, s'il vous plaît" },
+            { prompt: "¿Cómo te llamas?", answer: "Comment tu t'appelles ?" }
         ];
 
         const vocabularyExercises = [
             { word: "restaurant", translation: "restaurante" },
-            { word: "école", translation: "escuela" }
+            { word: "école", translation: "escuela" },
+            { word: "avion", translation: "avión" }
         ];
 
         let currentMode = null;
@@ -85,12 +103,14 @@
             currentMode = 'grammar';
             currentExercises = grammarExercises;
             showExercise();
+            updateModeButton();
         }
 
         function startVocabulary() {
             currentMode = 'vocabulary';
             currentExercises = vocabularyExercises;
             showExercise();
+            updateModeButton();
         }
 
         function showExercise() {
@@ -109,7 +129,7 @@
             const userAnswer = document.getElementById('answer').value.trim();
             const correctAnswer = currentMode === 'grammar' ? currentExercises[currentIndex].answer : currentExercises[currentIndex].translation;
             if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
-                document.getElementById('feedback').textContent = '¡Correcto!';
+                document.getElementById('feedback').textContent = '¡Correcto! 🎉';
                 document.getElementById('feedback').style.color = 'green';
             } else {
                 document.getElementById('feedback').textContent = `Incorrecto. La respuesta correcta es: ${correctAnswer}`;
@@ -120,6 +140,23 @@
         function nextExercise() {
             currentIndex = (currentIndex + 1) % currentExercises.length;
             showExercise();
+        }
+
+        function switchMode() {
+            if (currentMode === 'grammar') {
+                startVocabulary();
+            } else {
+                startGrammar();
+            }
+        }
+
+        function updateModeButton() {
+            const button = document.querySelector('.mode-switch button');
+            if (currentMode === 'grammar') {
+                button.textContent = 'Cambiar a Vocabulario';
+            } else {
+                button.textContent = 'Cambiar a Gramática';
+            }
         }
     </script>
 </body>
